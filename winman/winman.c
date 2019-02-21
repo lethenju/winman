@@ -6,6 +6,7 @@ winman_context* winman_init(void (*init_func)(winman_context*))
 {
     winman_context* ctx =  (winman_context*) malloc(sizeof(winman_context));
     ctx->termlib_ctx = termlib_init2();
+    (*init_func)(ctx);
     return ctx;
 }
 
@@ -19,11 +20,20 @@ void winman_event_loop(winman_context *ctx, void(*event_loop)(winman_context*))
 
 void add_window(winman_context* ctx, int posX, int posY, int width, int height) 
 {
-    winman_window* win = ctx->window_list;
-    //getting to last window
-    while (win != NULL)
+    winman_window* win;
+    if (ctx->window_list == NULL) 
+    {
+        // first window
+        ctx->window_list = malloc(sizeof(winman_window));
+        win = ctx->window_list;
+    } else {
+        win = ctx->window_list;
+        //getting to last window
+        while (win->next != NULL)
+            win = win->next;
+        win->next = (winman_window*) malloc(sizeof(winman_window));
         win = win->next;
-    ctx->window_list = (winman_window*) malloc(sizeof(winman_window));
+    }
 
     win->posX = posX;
     win->posY = posY;
@@ -53,7 +63,7 @@ void display_windows(winman_context* ctx)
                 case LINE:;
                     widget_line* line = (widget_line*) wid->widget_data;
                     draw_line(ctx->termlib_ctx->screen, win->posX + line->A->posX, win->posY + line->A->posY,
-                                                        win->posY + line->B->posX, win->posY + line->B->posY, line->rep);
+                                                        win->posX + line->B->posX, win->posY + line->B->posY, line->rep);
                     break;
                 case TEXT:;
                     widget_text* text = (widget_text*) wid->widget_data;
@@ -92,7 +102,17 @@ void display_windows(winman_context* ctx)
 
 void add_widget_to_win(widget* wid, winman_window* win)
 {
-    // TODO IMPLEMENT
+    if (win->widget_list == NULL) 
+    {
+        // first widget
+        win->widget_list = wid;
+    } else {
+        widget* widg = win->widget_list;
+        //getting to last window
+        while (widg->next != NULL)
+            widg = widg->next;
+        widg->next = wid;
+    }
 }
 void del_widget_from_win(widget* wid, winman_window* win)
 {
@@ -100,7 +120,6 @@ void del_widget_from_win(widget* wid, winman_window* win)
 }
 
  
-
 widget_dot* create_widget_dot(int posX, int posY, char rep)
 {
     widget_dot* widget_data = malloc(sizeof(widget_dot));
@@ -130,4 +149,46 @@ widget* create_widget(widget_type_enum type, void* widget_data)
 void move_window(winman_window* win, int newPosX, int newPosY)
 {
     // TODO IMPLEMENT
+}
+
+int get_number_windows(winman_context* ctx)
+{
+    if (ctx->window_list == NULL) 
+    {
+        return 0;
+    } 
+    winman_window* win = ctx->window_list;
+    int count = 0;
+    while (win->next != NULL) {
+        win = win->next;
+        count++;
+    }
+    return count;
+}
+
+winman_window* get_last_window(winman_context* ctx) 
+{
+    if (ctx->window_list == NULL) 
+    {
+        return NULL;
+    } 
+    winman_window* win = ctx->window_list;
+    while (win->next != NULL)
+        win = win->next;
+    return win;
+
+}
+
+
+void shift_window_layer(winman_context* ctx) 
+{
+    int nb_windows = get_number_windows(ctx);
+    int i;
+    winman_window* win = get_last_window(ctx);
+    win->next = ctx->window_list;
+    ctx->window_list = win;
+    winman_window* close = ctx->window_list;
+    for (i=0; i<nb_windows; i++)
+        close = close->next; 
+    close->next = NULL;        
 }

@@ -7,18 +7,58 @@
 
 
 void* init(winman_context* ctx){
-    add_window(ctx, 10,10,10,10);
-    add_window(ctx, 20, 20, 30, 30);
+    add_window(ctx, 10, 10, 50, 50);
+    add_window(ctx, 20, 20, 50, 50);
+    add_window(ctx, 30, 5, 50, 20);
+    
+    add_widget_to_win(create_widget(LINE, (void*) create_widget_line(10,10,40,45,'o')), ctx->window_list->next);
 }
 
 void* event_loop(winman_context* ctx) {
     char c;
+    
+    fill_rectangle(ctx->termlib_ctx->screen, 0, 0, ctx->termlib_ctx->screen->width, ctx->termlib_ctx->screen->height, ' ');
     display_windows(ctx);    
-
+    
     while((c=getchar())!= '.') {
+        winman_window *win= get_last_window(ctx);
         switch (c){
+            case 'v':
+                // like alt tab
+                shift_window_layer(ctx);
+                break;
+            case 'z':
+                // move up current window
+                win->posY--;
+                break;
+            case 'q':
+                // move left current window
+                win->posX--;
+                break;
+            case 's':
+                // move down current window
+                win->posY++;
+                break;
+            case 'd':
+                // move right current window
+                win->posX++;
+                break;
+            case 'c':
+                // create new window
+                add_window(ctx, 40,40,30,30);
+                break;
+            case 'x':
+                // delete current window
+                win = NULL;
+                break;
+                
 
-        }       
+        }
+
+        fill_rectangle(ctx->termlib_ctx->screen, 0, 0, ctx->termlib_ctx->screen->width, ctx->termlib_ctx->screen->height, ' ');
+        display_windows(ctx);    
+    
+
     }
 }
 

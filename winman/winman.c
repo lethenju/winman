@@ -1,19 +1,29 @@
 #include "winman_types.h"
 #include "../termlib/termlib.h"
 #include "../termlib/screen.h"
+#include <stdlib.h>
 winman_context* winman_init(void (*init_func)(winman_context*))
 {
     winman_context* ctx =  (winman_context*) malloc(sizeof(winman_context));
     ctx->termlib_ctx = termlib_init2();
     return ctx;
 }
+
+void winman_event_loop(winman_context *ctx, void(*event_loop)(winman_context*))
+{
+    (*event_loop)(ctx);
+    system("clear");
+    ctx->termlib_ctx->exit = 1;
+
+}
+
 void add_window(winman_context* ctx, int posX, int posY, int width, int height) 
 {
     winman_window* win = ctx->window_list;
     //getting to last window
     while (win != NULL)
         win = win->next;
-    win = (winman_window*) malloc(sizeof(winman_window));
+    ctx->window_list = (winman_window*) malloc(sizeof(winman_window));
 
     win->posX = posX;
     win->posY = posY;
@@ -36,20 +46,20 @@ void display_windows(winman_context* ctx)
         while (wid != NULL) {
             switch (wid->type) 
             {
-                case DOT:
+                case DOT:;
                     widget_dot* dot = (widget_dot*) wid->widget_data;
                     set_pixel(ctx->termlib_ctx->screen, win->posX+ dot->posX, win->posY + dot->posY, dot->rep);
                     break;
-                case LINE:
+                case LINE:;
                     widget_line* line = (widget_line*) wid->widget_data;
                     draw_line(ctx->termlib_ctx->screen, win->posX + line->A->posX, win->posY + line->A->posY,
                                                         win->posY + line->B->posX, win->posY + line->B->posY, line->rep);
                     break;
-                case TEXT:
+                case TEXT:;
                     widget_text* text = (widget_text*) wid->widget_data;
                     write_text(ctx->termlib_ctx->screen, win->posX + text->position->posX, win->posY + text->position->posY, text->text);
                     break;
-                case RECTANGLE:
+                case RECTANGLE:;
                     widget_rectangle* rect = (widget_rectangle*) wid->widget_data;
                     if (rect->filled) 
                     {
@@ -60,7 +70,7 @@ void display_windows(winman_context* ctx)
                                                              win->posX + rect->bottom_right_corner->posX, win->posY + rect->bottom_right_corner->posY,rect->rep );
                     }
                     break;
-                case CIRCLE:
+                case CIRCLE:;
                     widget_circle* circ = (widget_circle*) wid->widget_data;
                     if (circ->filled) 
                     {
@@ -93,7 +103,7 @@ void del_widget_from_win(widget* wid, winman_window* win)
 
 widget_dot* create_widget_dot(int posX, int posY, char rep)
 {
-    widget_dot* widget_data = (widget_dot*) malloc(sizeof(widget_dot));
+    widget_dot* widget_data = malloc(sizeof(widget_dot));
     widget_data->posX = posX;
     widget_data->posY = posY;
     widget_data->rep = rep;
@@ -102,11 +112,19 @@ widget_dot* create_widget_dot(int posX, int posY, char rep)
 
 widget_line* create_widget_line(int posX, int posY, int posX2, int posY2, char rep)
 {
-    widget_line* widget_data = (widget_line*) malloc(sizeof(widget_line));
+    widget_line* widget_data = malloc(sizeof(widget_line));
     widget_data->A = create_widget_dot(posX, posY, rep);
     widget_data->B = create_widget_dot(posX2, posY2, rep);
     widget_data->rep = rep;
     return widget_data;
+}
+
+widget* create_widget(widget_type_enum type, void* widget_data) 
+{
+    widget* wid = malloc(sizeof(widget));
+    wid->widget_data = widget_data;
+    wid->type = type;
+    return wid;
 }
 
 void move_window(winman_window* win, int newPosX, int newPosY)

@@ -6,17 +6,19 @@
 #include "../termlib/termlib.h"
 
 
-void* init(termlib_context* ctx){
-    
+void* init(winman_context* ctx){
+    add_window(ctx, 10,10,10,10);
+    add_window(ctx, 20, 20, 30, 30);
 }
 
-void* event_loop(termlib_context* ctx) {
+void* event_loop(winman_context* ctx) {
     char c;
+    display_windows(ctx);    
+
     while((c=getchar())!= '.') {
         switch (c){
 
         }       
-        fill_rectangle(ctx->screen, 1,1, ctx->screen->width-2, ctx->screen->height-2,' ');
     }
 }
 
@@ -24,7 +26,7 @@ void* event_loop(termlib_context* ctx) {
 // DO NOT TOUCH MAIN
 int main(int argc, char *argv[])
 {
-    termlib_context* ctx = termlib_init((void*)init);
-    termlib_event_loop(ctx, (void*)event_loop);
+    winman_context* ctx = winman_init((void*)init);
+    winman_event_loop(ctx, (void*)event_loop);
     return 0;
 }

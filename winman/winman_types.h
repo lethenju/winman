@@ -1,6 +1,6 @@
 #ifndef WINMAN_TYPES
 #define WINMAN_TYPES
-
+#include "../termlib/termlib_types.h"
 typedef enum {
     ZERO,
     DOT,
@@ -45,7 +45,7 @@ typedef struct {
 typedef struct widget_t widget;
 
 typedef struct widget_t {
-    widget_type_enum type;
+    int type;
     void* widget_data;
     widget* next;
 } widget;

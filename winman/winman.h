@@ -1,7 +1,7 @@
 #ifndef WINMAN_H
 #define WINMAN_H
 #include "../termlib/termlib.h"
-
+#include "winman_types.h"
 winman_context* winman_init();
 
 void add_window(winman_context* ctx, int posX, int posY, int width, int height);

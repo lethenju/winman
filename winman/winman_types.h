@@ -27,11 +27,11 @@ typedef struct {
 typedef struct {
     widget_dot* position;
     char* text;
-} text;
+} widget_text;
 
 typedef struct {
     widget_dot* top_left_corner;
-    widget_dot* down_right_corner;
+    widget_dot* bottom_right_corner;
     int filled;
     char rep;
 } widget_rectangle;
@@ -45,8 +45,6 @@ typedef struct {
 typedef struct widget_t widget;
 
 typedef struct widget_t {
-    int posX;
-    int posY;
     widget_type_enum type;
     void* widget_data;
     widget* next;
@@ -65,6 +63,7 @@ typedef struct winman_window_t {
 
 typedef struct {
     winman_window* window_list;
+    termlib_context* termlib_ctx;
 } winman_context;
 
 #endif

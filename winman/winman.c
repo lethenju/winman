@@ -150,6 +150,15 @@ widget_line* create_widget_line(int posX, int posY, int posX2, int posY2, char r
     return widget_data;
 }
 
+widget_text* create_widget_text(int posX, int posY, char* text)
+{
+    widget_text* widget_data = malloc(sizeof(widget_text));
+    widget_data->position = create_widget_dot(posX, posY, ' ');
+    widget_data->text = text;
+    return widget_data;
+}
+
+
 widget* create_widget(widget_type_enum type, void* widget_data) 
 {
     widget* wid = malloc(sizeof(widget));

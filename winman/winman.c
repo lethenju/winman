@@ -2,6 +2,7 @@
 #include "../termlib/termlib.h"
 #include "../termlib/screen.h"
 #include <stdlib.h>
+winman_window* get_last_window(winman_context* ctx) ;
 winman_context* winman_init(void (*init_func)(winman_context*))
 {
     winman_context* ctx =  (winman_context*) malloc(sizeof(winman_context));
@@ -40,9 +41,14 @@ void add_window(winman_context* ctx, int posX, int posY, int width, int height)
     win->width = width;
     win->height = height;
 }
-void del_window(winman_context* ctx, winman_window* win)
+void del_last_window(winman_context* ctx)
 {
-    // TODO IMPLEMENT
+    winman_window *win = ctx->window_list;
+    winman_window *last = get_last_window(ctx);
+    while (win->next != last)
+        win = win->next;
+    win->next = NULL;
+    free(last);
 }
 void display_windows(winman_context* ctx)
 {
@@ -116,7 +122,13 @@ void add_widget_to_win(widget* wid, winman_window* win)
 }
 void del_widget_from_win(widget* wid, winman_window* win)
 {
-    // TODO IMPLEMENT
+    widget* widg = win->widget_list;
+    while (wid != widg && widg->next != NULL)
+        widg = widg->next;
+    if (wid == widg) 
+    {
+        // TODO put the parent's child on the child of wid, then free wid
+    }
 }
 
  
@@ -144,11 +156,6 @@ widget* create_widget(widget_type_enum type, void* widget_data)
     wid->widget_data = widget_data;
     wid->type = type;
     return wid;
-}
-
-void move_window(winman_window* win, int newPosX, int newPosY)
-{
-    // TODO IMPLEMENT
 }
 
 int get_number_windows(winman_context* ctx)

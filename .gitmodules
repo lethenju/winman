@@ -1,0 +1,3 @@
+[submodule "termlib"]
+	path = termlib
+	url = https://github.com/lethenju/termlib/

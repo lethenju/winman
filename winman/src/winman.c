@@ -1,3 +1,7 @@
+/**
+ * winman version 0.1 (c) Julien LE THENO
+ * (c) MIT LICENSE
+ */
 #include "../../termlib/src/termlib/screen.h"
 #include "winman_types.h"
 #include <stdlib.h>

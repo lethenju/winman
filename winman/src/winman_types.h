@@ -49,7 +49,7 @@ typedef struct {
     widget_dot* top_left_corner;     // top left corner of the rectangle
     widget_dot* bottom_right_corner; // bottom right corner of the rectangle
     int filled;                      // filled flag : if 1, then the rectangle is filled with rep
-    char rep;                        // character representation of the edges of the rectangle, and if 'filled', the inside 
+    char rep;                        // character representation of the edges of the rectangle, and the inside if 'filled'
 } widget_rectangle;
 
 /** circle widget data structure
@@ -58,7 +58,7 @@ typedef struct {
     widget_dot* center; // center of the circle
     int radius;         // radius of the circle
     int filled;         // filled flag : if 1, then the circle is filled with rep
-    char rep;           // character representation of the edges of the circle, and if 'filled', the inside 
+    char rep;           // character representation of the edges of the circle, and the inside if 'filled
 } widget_circle;
 
 /** generic chained widget data structure

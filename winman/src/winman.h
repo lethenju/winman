@@ -2,7 +2,6 @@
  * winman version 0.1 (c) Julien LE THENO
  * (c) MIT LICENSE
  */
-
 #ifndef WINMAN_H
 #define WINMAN_H
 /** Winman is built on top of termlib, which provides some useful building blocks.

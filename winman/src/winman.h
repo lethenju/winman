@@ -59,7 +59,9 @@ widget_dot* create_widget_dot(int posX, int posY, char rep);
 
 /** Creates a 'line' widget
  *  @param posX   : the X position of the first point, relative to the window
- *  @param posY   : the Y position of the second point, relative to the window
+ *  @param posY   : the Y position of the first point, relative to the window
+ *  @param posX2  : the X position of the second point, relative to the window
+ *  @param posY2  : the Y position of the second point, relative to the window
  *  @param rep    : the character representation of the line, will be displayed on screen
  *  @return the widget_line created
  */

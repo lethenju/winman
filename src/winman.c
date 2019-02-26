@@ -1,9 +1,6 @@
-/**
- * winman version 0.1 (c) Julien LE THENO
- * (c) MIT LICENSE
- */
-#include "../termlib/src/screen.h"
 #include "winman_types.h"
+#include "../termlib/src/termlib.h"
+#include "../termlib/src/screen.h"
 #include <stdlib.h>
 winman_window* get_last_window(winman_context* ctx) ;
 winman_context* winman_init(void (*init_func)(winman_context*))
@@ -59,34 +56,38 @@ void display_windows(winman_context* ctx)
     //getting to last window
     while (win != NULL)
     {
-        fill_rectangle(ctx->termlib_ctx->screen, win->posX, win->posY, win->width, win->height, ' ');
-        draw_rectangle(ctx->termlib_ctx->screen, win->posX, win->posY, win->width, win->height, '*');
+        fill_rectangle(ctx->termlib_ctx->screen, win->posX, win->posY, win->width, win->height, ' ', FG_DEFAULT, BG_DARK_GRAY);
+        if (win->next != NULL)
+            draw_rectangle(ctx->termlib_ctx->screen, win->posX, win->posY, win->width, win->height, '*', FG_DEFAULT, BG_DARK_GRAY);
+        else 
+            draw_rectangle(ctx->termlib_ctx->screen, win->posX, win->posY, win->width, win->height, '*', FG_DEFAULT, BG_LIGHT_GRAY);
+
         widget* wid = win->widget_list;
         while (wid != NULL) {
             switch (wid->type) 
             {
                 case DOT:;
                     widget_dot* dot = (widget_dot*) wid->widget_data;
-                    set_pixel(ctx->termlib_ctx->screen, win->posX+ dot->posX, win->posY + dot->posY, dot->rep);
+                    set_pixel(ctx->termlib_ctx->screen, win->posX+ dot->posX, win->posY + dot->posY, dot->rep, FG_DEFAULT, BG_DEFAULT);
                     break;
                 case LINE:;
                     widget_line* line = (widget_line*) wid->widget_data;
                     draw_line(ctx->termlib_ctx->screen, win->posX + line->A->posX, win->posY + line->A->posY,
-                                                        win->posX + line->B->posX, win->posY + line->B->posY, line->rep);
+                                                        win->posX + line->B->posX, win->posY + line->B->posY, line->rep, FG_DEFAULT, BG_DEFAULT);
                     break;
                 case TEXT:;
                     widget_text* text = (widget_text*) wid->widget_data;
-                    write_text(ctx->termlib_ctx->screen, win->posX + text->position->posX, win->posY + text->position->posY, text->text);
+                    write_text(ctx->termlib_ctx->screen, win->posX + text->position->posX, win->posY + text->position->posY, text->text, FG_DEFAULT, BG_DEFAULT);
                     break;
                 case RECTANGLE:;
                     widget_rectangle* rect = (widget_rectangle*) wid->widget_data;
                     if (rect->filled) 
                     {
                         fill_rectangle(ctx->termlib_ctx->screen, win->posX + rect->top_left_corner->posX, win->posY + rect->top_left_corner->posY,
-                                                             win->posX + rect->bottom_right_corner->posX, win->posY + rect->bottom_right_corner->posY,rect->rep );
+                                                             win->posX + rect->bottom_right_corner->posX, win->posY + rect->bottom_right_corner->posY,rect->rep, FG_DEFAULT, BG_DEFAULT);
                     } else {
                         draw_rectangle(ctx->termlib_ctx->screen, win->posX + rect->top_left_corner->posX, win->posY + rect->top_left_corner->posY,
-                                                             win->posX + rect->bottom_right_corner->posX, win->posY + rect->bottom_right_corner->posY,rect->rep );
+                                                             win->posX + rect->bottom_right_corner->posX, win->posY + rect->bottom_right_corner->posY,rect->rep, FG_DEFAULT, BG_DEFAULT);
                     }
                     break;
                 case CIRCLE:;
@@ -94,10 +95,10 @@ void display_windows(winman_context* ctx)
                     if (circ->filled) 
                     {
                         fill_circle(ctx->termlib_ctx->screen, win->posX + circ->center->posX, win->posY + circ->center->posY,
-                                                             circ->radius, rect->rep );
+                                                             circ->radius, rect->rep, FG_DEFAULT, BG_DEFAULT);
                     } else {
                         draw_circle(ctx->termlib_ctx->screen, win->posX + circ->center->posX, win->posY + circ->center->posY,
-                                                             circ->radius, rect->rep );
+                                                             circ->radius, rect->rep, FG_DEFAULT, BG_DEFAULT);
                     }
                     break;
             }
@@ -158,40 +159,6 @@ widget_text* create_widget_text(int posX, int posY, char* text)
     widget_text* widget_data = malloc(sizeof(widget_text));
     widget_data->position = create_widget_dot(posX, posY, ' ');
     widget_data->text = text;
-    return widget_data;
-}
-
-widget_rectangle* create_widget_rectangle(int posX, int posY, int posX2, int posY2, char rep)
-{
-    widget_rectangle* widget_data = malloc(sizeof(widget_rectangle));
-    widget_data->top_left_corner = create_widget_dot(posX, posY, rep);
-    widget_data->bottom_right_corner = create_widget_dot(posX2, posY2, rep);
-    widget_data->filled = 0;
-    widget_data->rep = rep;
-    return widget_data;
-}
-
-widget_rectangle* create_widget_rectangle_filled(int posX, int posY, int posX2, int posY2, char rep)
-{
-    widget_rectangle* widget_data = create_widget_rectangle(posX, posY, posX2, posY2, rep);
-    widget_data->filled = 1;
-    return widget_data;
-}
-
-widget_circle* create_widget_circle(int posX, int posY, int radius, char rep)
-{
-    widget_circle* widget_data = malloc(sizeof(widget_circle));
-    widget_data->center = create_widget_dot(posX, posY, rep);
-    widget_data->radius = radius;
-    widget_data->filled = 0;
-    widget_data->rep = rep;
-    return widget_data;
-}
-
-widget_circle* create_widget_circle_filled(int posX, int posY, int radius, char rep)
-{
-    widget_circle* widget_data = create_widget_circle(posX, posY, radius, rep);
-    widget_data->filled = 1;
     return widget_data;
 }
 

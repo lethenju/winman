@@ -1,9 +1,9 @@
 // TEST.C for testing winman
 
-#include "src/winman.h"
-#include "src/winman_types.h"
-#include "../termlib/src/termlib/screen.h"
-#include "../termlib/src/termlib/termlib.h"
+#include "../src/winman.h"
+#include "../src/winman_types.h"
+#include "../termlib/src/screen.h"
+#include "../termlib/src/termlib.h"
 
 
 void* init(winman_context* ctx){

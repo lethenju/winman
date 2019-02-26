@@ -6,7 +6,7 @@
 #define WINMAN_TYPES
 /** Winman is built on top of termlib, which provides some useful building blocks.
  */
-#include "../../termlib/src/termlib/termlib_types.h"
+#include "../termlib/src/termlib_types.h"
 
 /** widget type, available widget types
  */

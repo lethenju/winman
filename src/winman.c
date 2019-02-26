@@ -2,7 +2,7 @@
  * winman version 0.1 (c) Julien LE THENO
  * (c) MIT LICENSE
  */
-#include "../../termlib/src/termlib/screen.h"
+#include "../termlib/src/screen.h"
 #include "winman_types.h"
 #include <stdlib.h>
 winman_window* get_last_window(winman_context* ctx) ;

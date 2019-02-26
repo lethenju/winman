@@ -21,7 +21,7 @@ Some nice TUI applications exists, like tui-rs (https://github.com/fdehau/tui-rs
 
 ## Cool ! Can I use it right now ?
 
-Erm, unfortunately, the project isnt mature enough to be used. You can review the sources and propose some PRs, I would be glad, but you should note that the project is in a very young stage. There are a lot of implementation work to do, as well as various optimisations.
+Erm, unfortunately, the project isnt mature enough to be used. You can review the sources and propose some PRs, I would be glad, but you should note that the project is in a very early stage. There are a lot of implementation work to do, as well as various optimisations.
 
 
 ## Oh Okay, When will it be available ?

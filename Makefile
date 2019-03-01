@@ -26,12 +26,15 @@ F1_EXISTS=$(shell [ -e $(BUILD_DIR) ] && echo Y || echo N )
 test: termlib test.o 
 	gcc -o $(EXE_DIR)/test_exe $(TERMLIB_OBJ_DIR)/* $(OBJECTS_DIR)/* -lpthread -lm
 
-test.o: winman.o $(EXAMPLES_DIR)/test.c $(SRC_DIR)/winman.h $(TERMLIB_DIR)/src/screen.h
+test.o: winman.o tasks_mgmt.o $(EXAMPLES_DIR)/test.c $(SRC_DIR)/winman.h $(TERMLIB_DIR)/src/screen.h
 	gcc -g -c $(EXAMPLES_DIR)/test.c $(SRC_DIR) -o  $(OBJECTS_DIR)/test.o
 ### END EXAMPLE TARGETS
 
 
 ### LIB TARGET
+
+tasks_mgmt.o: $(SRC_DIR)/tasks_mgmt.c $(SRC_DIR)/tasks_mgmt.h 
+	gcc -g -c $(SRC_DIR)/tasks_mgmt.c -o  $(OBJECTS_DIR)/tasks_mgmt.o
 
 winman.o: $(SRC_DIR)/winman.c $(SRC_DIR)/winman.h 
 	gcc -g -c $(SRC_DIR)/winman.c -o  $(OBJECTS_DIR)/winman.o

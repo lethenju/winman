@@ -2,18 +2,21 @@
 
 #include "../src/winman.h"
 #include "../src/winman_types.h"
+#include "../src/tasks_mgmt.h"
 #include "../termlib/src/screen.h"
 #include "../termlib/src/termlib.h"
-
 
 void* init(winman_context* ctx){
     add_window(ctx, 10, 10, 50, 15);
     add_window(ctx, 20, 20, 50, 10);
     add_window(ctx, 30, 5, 50, 20);
-    add_widget_to_win(create_widget(TEXT, (void*) create_widget_text(2,2,"FENETRE 1")), ctx->window_list);
+    widget *fenetre1_name = create_widget(TEXT, (void*) create_widget_text(2,2,"FENETRE 1"));
+    add_widget_to_win(fenetre1_name, ctx->window_list);
     add_widget_to_win(create_widget(TEXT, (void*) create_widget_text(2,2,"FENETRE 2")), ctx->window_list->next);
     add_widget_to_win(create_widget(TEXT, (void*) create_widget_text(2,2,"FENETRE 3")), ctx->window_list->next->next);
     add_widget_to_win(create_widget(LINE, (void*) create_widget_line(5,5,8,8,'o')), ctx->window_list->next);
+
+    add_task_text_input(fenetre1_name->widget_data,ctx);
     screen_frame_ready(ctx->termlib_ctx->screen);
 }
 

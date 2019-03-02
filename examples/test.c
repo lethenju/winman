@@ -5,6 +5,7 @@
 #include "../src/tasks_mgmt.h"
 #include "../termlib/src/screen.h"
 #include "../termlib/src/termlib.h"
+#include <stdio.h>
 
 void* init(winman_context* ctx){
     add_window(ctx, 10, 10, 50, 15);

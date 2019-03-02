@@ -2,6 +2,7 @@
 #include <string.h>
 #include "../termlib/src/screen.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 void* thread_task_text_input(void* tti)
 {

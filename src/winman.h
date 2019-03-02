@@ -16,6 +16,11 @@
  */
 winman_context* winman_init();
 
+/** Launches the winman event loop given in parameters
+ */ 
+void winman_event_loop(winman_context *ctx, void(*event_loop)(winman_context*));
+
+
 /** Creates a window
  *  @param ctx   : the winman context
  *  @param posX  : the X coordinate of the top left position of the new window
@@ -139,6 +144,11 @@ void move_window(winman_window* win, int newPosX, int newPosY);
  *  @return the last window
  */
 winman_window* get_last_window(winman_context* ctx);
+
+/** Deletes the last window (in other words the currently selected one)
+ *  @param ctx : the context
+ */
+void del_last_window(winman_context* ctx);
 
 /** Shifts the order of the currently displayed windows. The last becomes first, the first second etc..
  * @param ctx : the context

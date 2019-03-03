@@ -1,10 +1,10 @@
 // TEST.C for testing winman
 
-#include "../src/winman.h"
-#include "../src/winman_types.h"
-#include "../src/tasks_mgmt.h"
-#include "../termlib/src/screen.h"
-#include "../termlib/src/termlib.h"
+#include "winman.h"
+#include "winman_types.h"
+#include "tasks_mgmt.h"
+#include "screen.h"
+#include "termlib.h"
 #include <stdio.h>
 
 void* init(winman_context* ctx){

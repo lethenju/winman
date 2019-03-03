@@ -6,7 +6,7 @@
 #define WINMAN_H
 /** Winman is built on top of termlib, which provides some useful building blocks.
  */
-#include "../termlib/src/termlib.h"
+#include "termlib.h"
 /** In order to understand the internals, begin with winman_types
  */
 #include "winman_types.h"

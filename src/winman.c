@@ -1,6 +1,6 @@
 #include "winman_types.h"
-#include "../termlib/src/termlib.h"
-#include "../termlib/src/screen.h"
+#include "termlib.h"
+#include "screen.h"
 #include <stdlib.h>
 winman_window* get_last_window(winman_context* ctx) ;
 winman_context* winman_init(void (*init_func)(winman_context*))

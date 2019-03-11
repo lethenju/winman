@@ -80,6 +80,7 @@ typedef struct winman_window_t {
     int height;          // height of the window (in rows)
     widget* widget_list; // pointer to the widget chained list
     winman_window* next; // next window
+    void (*input_manager)(winman_window*,char); // input manager method for this window
 } winman_window;
 
 /** full winman context, top of the winman data tree

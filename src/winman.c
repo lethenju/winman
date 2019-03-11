@@ -1,45 +1,59 @@
 #include "winman_types.h"
 #include "termlib.h"
 #include "screen.h"
+#include "log_system.h"
 #include <stdlib.h>
 winman_window* get_last_window(winman_context* ctx) ;
 winman_context* winman_init(void (*init_func)(winman_context*))
 {
+    DEBUG_TRACE("winman_init");
     winman_context* ctx =  (winman_context*) malloc(sizeof(winman_context));
+    memset(ctx, NULL, sizeof(winman_context));
     ctx->termlib_ctx = termlib_init2();
     (*init_func)(ctx);
+    DEBUG_TRACE("winman_init done");
     return ctx;
 }
 
 void winman_event_loop(winman_context *ctx, void(*event_loop)(winman_context*))
 {
+    DEBUG_TRACE("winman event loop");
     (*event_loop)(ctx);
     system("clear");
     ctx->termlib_ctx->exit = 1;
+    DEBUG_TRACE("exiting");
 
 }
 
 void add_window(winman_context* ctx, int posX, int posY, int width, int height) 
 {
+    INFO_TRACE("adding windows");
     winman_window* win;
     if (ctx->window_list == NULL) 
     {
         // first window
         ctx->window_list = malloc(sizeof(winman_window));
         win = ctx->window_list;
+        win->next = NULL;
     } else {
         win = ctx->window_list;
         //getting to last window
-        while (win->next != NULL)
+        DEBUG_TRACE("C'est la?");
+        while (win->next != NULL) {
             win = win->next;
+        }
+        DEBUG_TRACE("C'est la le souci ?");
         win->next = (winman_window*) malloc(sizeof(winman_window));
         win = win->next;
+        win->next = NULL;
     }
 
     win->posX = posX;
     win->posY = posY;
     win->width = width;
     win->height = height;
+    INFO_TRACE("window added");
+
 }
 void del_last_window(winman_context* ctx)
 {
@@ -52,6 +66,7 @@ void del_last_window(winman_context* ctx)
 }
 void display_windows(winman_context* ctx)
 {
+    INFO_TRACE("display windows");
     winman_window* win = ctx->window_list;
     //getting to last window
     while (win != NULL)

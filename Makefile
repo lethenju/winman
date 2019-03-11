@@ -2,7 +2,7 @@
 # MIT License
 # Julien LE THENO
 
-all: setup test 
+all: setup clean test 
 
 SHELL:=/bin/bash
 MAKE=make
@@ -12,10 +12,10 @@ OBJECTS_DIR=$(BUILD_DIR)/obj
 EXE_DIR=$(BUILD_DIR)/exe
 SRC_DIR=src
 EXAMPLES_DIR=examples
-INC_DIR+=inc termlib/inc  
+INC_DIR+=inc termlib/inc  termlib/log_system/inc
 INC_PARAM=$(foreach d, $(INC_DIR), -I$d)
 TERMLIB_DIR=termlib
-TERMLIB_OBJ_DIR=$(TERMLIB_DIR)/build/obj
+TERMLIB_OBJ_DIR=$(TERMLIB_DIR)/build/obj/* $(TERMLIB_DIR)/log_system/build/obj
 
 
 F1_EXISTS=$(shell [ -e $(BUILD_DIR) ] && echo Y || echo N )
@@ -25,7 +25,7 @@ F1_EXISTS=$(shell [ -e $(BUILD_DIR) ] && echo Y || echo N )
 ### EXAMPLES TARGETS
 
 # TEST EXAMPLE
-test: termlib test.o 
+test: clean termlib test.o 
 	gcc -o $(EXE_DIR)/test_exe $(TERMLIB_OBJ_DIR)/* $(OBJECTS_DIR)/* -lpthread -lm
 
 test.o: winman.o tasks_mgmt.o $(EXAMPLES_DIR)/test.c 
@@ -60,3 +60,8 @@ make clean:
 	cd $(TERMLIB_DIR) && $(MAKE) clean
 
 make rebuild: clean all
+
+
+build_and_launch: all
+	$(shell xfce4-terminal -e termlib/log_system/build/exe/server_exe)
+	$(shell xfce4-terminal --geometry 100x50 -e build/exe/test_exe)

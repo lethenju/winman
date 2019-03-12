@@ -1,14 +1,17 @@
 // TEST.C for testing winman
 
 #include "winman.h"
+#include "widgets.h"
 #include "winman_types.h"
 #include "tasks_mgmt.h"
 #include "screen.h"
 #include "termlib.h"
 #include "log_system.h"
+#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
-static int MODE_INTRA_WINDOW = 1;
+static int MODE_INTRA_WINDOW = 0;
 
 void task_of_changing_window_name(winman_window *win, char c)
 {
@@ -16,7 +19,8 @@ void task_of_changing_window_name(winman_window *win, char c)
     widget_text *wid = win->widget_list->widget_data;
     if (c==127) // backspace
     {
-        wid->text[strlen(wid->text) -1] = '\0';
+        if (strlen(wid->text)>0)
+            wid->text[strlen(wid->text) -1] = '\0';
     }
     else
     {
@@ -42,8 +46,8 @@ void* init(winman_context* ctx){
     add_input_task(ctx->window_list,(void*) task_of_changing_window_name);
     add_input_task(ctx->window_list->next,(void*) task_of_changing_window_name);
     add_input_task(ctx->window_list->next->next,(void*) task_of_changing_window_name);
-
-    
+    fill_rectangle(ctx->termlib_ctx->screen, 0, 0, ctx->termlib_ctx->screen->width, ctx->termlib_ctx->screen->height, ' ', FG_DEFAULT, BG_DEFAULT);
+    display_windows(ctx);    
     screen_frame_ready(ctx->termlib_ctx->screen);
     DEBUG_TRACE("3");
 

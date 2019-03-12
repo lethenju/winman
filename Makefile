@@ -28,7 +28,7 @@ F1_EXISTS=$(shell [ -e $(BUILD_DIR) ] && echo Y || echo N )
 test: clean termlib test.o 
 	gcc -o $(EXE_DIR)/test_exe $(TERMLIB_OBJ_DIR)/* $(OBJECTS_DIR)/* -lpthread -lm
 
-test.o: winman.o tasks_mgmt.o $(EXAMPLES_DIR)/test.c 
+test.o: widgets.o winman.o tasks_mgmt.o $(EXAMPLES_DIR)/test.c 
 	gcc -g -c $(EXAMPLES_DIR)/test.c $(SRC_DIR) $(INC_PARAM) -o  $(OBJECTS_DIR)/test.o
 ### END EXAMPLE TARGETS
 
@@ -40,6 +40,9 @@ tasks_mgmt.o: $(SRC_DIR)/tasks_mgmt.c
 
 winman.o: $(SRC_DIR)/winman.c
 	gcc -g -c $(SRC_DIR)/winman.c $(INC_PARAM) -o $(OBJECTS_DIR)/winman.o
+
+widgets.o: $(SRC_DIR)/widgets.c
+	gcc -g -c $(SRC_DIR)/widgets.c $(INC_PARAM) -o $(OBJECTS_DIR)/widgets.o
 
 ### END LIB TARGET
 

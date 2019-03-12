@@ -28,6 +28,40 @@ widget_text* create_widget_text(int posX, int posY, char* text)
     return widget_data;
 }
 
+widget_rectangle* create_widget_rectangle(int posX, int posY, int posX2, int posY2, char rep)
+{
+    widget_rectangle* widget_data = malloc(sizeof(widget_rectangle));
+    widget_data->top_left_corner = create_widget_dot(posX, posY, rep);
+    widget_data->bottom_right_corner = create_widget_dot(posX2, posY2, rep);
+    widget_data->filled = 0;
+    widget_data->rep = rep;
+    return widget_data;
+}
+
+widget_rectangle* create_widget_rectangle_filled(int posX, int posY, int posX2, int posY2, char rep)
+{
+    widget_rectangle* widget_data = create_widget_rectangle(posX, posY, posX2, posY2, rep);
+    widget_data->filled = 1;
+    return widget_data;
+}
+
+widget_circle* create_widget_circle(int posX, int posY, int radius, char rep)
+{
+    widget_circle* widget_data = malloc(sizeof(widget_circle));
+    widget_data->center = create_widget_dot(posX, posY, rep);
+    widget_data->radius = radius;
+    widget_data->filled = 0;
+    widget_data->rep = rep;
+    return widget_data;
+}
+
+widget_circle* create_widget_circle_filled(int posX, int posY, int radius, char rep)
+{
+    widget_circle* widget_data = create_widget_circle(posX, posY, radius, rep);
+    widget_data->filled = 1;
+    return widget_data;
+}
+
 
 widget* create_widget(widget_type_enum type, void* widget_data) 
 {

@@ -8,7 +8,9 @@ TUI "window" manager built on top of termlib
 It provides `windows`, that can be filled with `widgets`.
 Those widgets can be buttons, text, or simpler shapes. In the future there will be some complex widgets, as `frames`, `scrollbars` and other building blocks of window application.
 
-## Why the f. does it exists ?
+It can be compared to `ncurses` in the fonctionnalities, but tries to be even more user friendly and have more window-like features
+
+## Why does it exists ?
 
 When it comes to user interfaces, you rarely have the choice but to opt for a desktop environment to beneficiate complex features as multi-window systems. Those solutions are nice but goes heavy on ressources, if you are very limited with a low powered target, connected via SSH.
 
@@ -19,15 +21,17 @@ CLI applications, on the other hand, are often not user friendly for non-develop
 Some nice TUI applications exists, like tui-rs (https://github.com/fdehau/tui-rs) for rust, but not many uses a true window system.
 
 
-## Cool ! Can I use it right now ?
+## Cool ! How does it works ?
 
-Erm, unfortunately, the project isnt mature enough to be used. You can review the sources and propose some PRs, I would be glad, but you should note that the project is in a very early stage. There are a lot of implementation work to do, as well as various optimisations.
+You can read and launch the example file to understand how to use the project.
+type `make build_and_launch` to build the whole system, the log system server and launch all what is needed.
 
+You can type to modify the windows name, press '0' to change in interwindow mode and move the windows themselves using ZQSD.
 
-## Oh Okay, When will it be available ?
+Don't hesitate to tweak the example file to better understand what is going on.
 
 I am currently shooting for a early release in March 2019.
 
-## Nice ! Good luck then !
+## Nice !
 
 Thank you ! I'd love to hear your thoughts about the project by the way. You can contact me on julien.letheno@gmail.com

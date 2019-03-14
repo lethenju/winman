@@ -67,7 +67,6 @@ widget_circle* create_widget_circle_filled(int posX, int posY, int radius, char 
 widget* create_widget(widget_type_enum type, void* widget_data) 
 {
     widget* wid = resman_alloc("widget", sizeof(widget));
-    memset(wid, 0, sizeof(wid));
     wid->widget_data = widget_data;
     wid->type = type;
     return wid;

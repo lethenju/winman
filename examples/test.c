@@ -33,7 +33,7 @@ void task_of_changing_window_name(winman_window *win, char c)
 
 
 void* init(winman_context* ctx){
-    DEBUG_TRACE("1");
+    DEBUG_TRACE("init");
     add_window(ctx, 10, 10, 20, 20);
     add_window(ctx, 20, 20, 20, 25);
     add_window(ctx, 30, 5, 30, 20);
@@ -41,7 +41,7 @@ void* init(winman_context* ctx){
     add_widget_to_win(fenetre1_name, ctx->window_list);
     add_widget_to_win(create_widget(TEXT, (void*) create_widget_text(2,2,"FENETRE 2")), ctx->window_list->next);
     add_widget_to_win(create_widget(TEXT, (void*) create_widget_text(2,2,"FENETRE 3")), ctx->window_list->next->next);
-    DEBUG_TRACE("2");
+    DEBUG_TRACE("Adding input tasks");
 
     add_input_task(ctx->window_list,(void*) task_of_changing_window_name);
     add_input_task(ctx->window_list->next,(void*) task_of_changing_window_name);
@@ -49,13 +49,12 @@ void* init(winman_context* ctx){
     fill_rectangle(ctx->termlib_ctx->screen, 0, 0, ctx->termlib_ctx->screen->width, ctx->termlib_ctx->screen->height, ' ', FG_DEFAULT, BG_DEFAULT);
     display_windows(ctx);    
     screen_frame_ready(ctx->termlib_ctx->screen);
-    DEBUG_TRACE("3");
+    DEBUG_TRACE("init done");
 
 }
 
 void* event_loop(winman_context* ctx) {
     char c;
-    INFO_TRACE("Winman EVENT LOOOOP");
     fill_rectangle(ctx->termlib_ctx->screen, 0, 0, ctx->termlib_ctx->screen->width, ctx->termlib_ctx->screen->height, ' ',FG_DEFAULT, BG_DEFAULT);
     display_windows(ctx);    
     

@@ -12,10 +12,10 @@ OBJECTS_DIR=$(BUILD_DIR)/obj
 EXE_DIR=$(BUILD_DIR)/exe
 SRC_DIR=src
 EXAMPLES_DIR=examples
-INC_DIR+=inc termlib/inc  termlib/log_system/inc
+INC_DIR+=inc termlib/inc  termlib/log_system/inc termlib/resman/inc
 INC_PARAM=$(foreach d, $(INC_DIR), -I$d)
 TERMLIB_DIR=termlib
-TERMLIB_OBJ_DIR=$(TERMLIB_DIR)/build/obj/* $(TERMLIB_DIR)/log_system/build/obj
+TERMLIB_OBJ_DIR=$(TERMLIB_DIR)/build/obj/* $(TERMLIB_DIR)/log_system/build/obj/* $(TERMLIB_DIR)/resman/build/obj
 
 
 F1_EXISTS=$(shell [ -e $(BUILD_DIR) ] && echo Y || echo N )

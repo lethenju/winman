@@ -2,13 +2,13 @@
 #include "termlib.h"
 #include "screen.h"
 #include "log_system.h"
+#include "resman.h"
 #include <stdlib.h>
 winman_window* get_last_window(winman_context* ctx) ;
 winman_context* winman_init(void (*init_func)(winman_context*))
 {
     DEBUG_TRACE("winman_init");
-    winman_context* ctx =  (winman_context*) malloc(sizeof(winman_context));
-    memset(ctx, NULL, sizeof(winman_context));
+    winman_context* ctx = resman_alloc("winman_context", sizeof(winman_context));
     ctx->termlib_ctx = termlib_init2();
     (*init_func)(ctx);
     DEBUG_TRACE("winman_init done");
@@ -32,7 +32,7 @@ void add_window(winman_context* ctx, int posX, int posY, int width, int height)
     if (ctx->window_list == NULL) 
     {
         // first window
-        ctx->window_list = malloc(sizeof(winman_window));
+        ctx->window_list = resman_alloc("first window", sizeof(winman_window));
         win = ctx->window_list;
         win->next = NULL;
     } else {
@@ -41,7 +41,7 @@ void add_window(winman_context* ctx, int posX, int posY, int width, int height)
         while (win->next != NULL) {
             win = win->next;
         }
-        win->next = (winman_window*) malloc(sizeof(winman_window));
+        win->next = resman_alloc("winman window", sizeof(winman_window));
         win = win->next;
         win->next = NULL;
     }
@@ -60,7 +60,7 @@ void del_last_window(winman_context* ctx)
     while (win->next != last)
         win = win->next;
     win->next = NULL;
-    free(last);
+    resman_free(last);
 }
 void display_windows(winman_context* ctx)
 {

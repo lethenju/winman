@@ -38,11 +38,9 @@ void add_window(winman_context* ctx, int posX, int posY, int width, int height)
     } else {
         win = ctx->window_list;
         //getting to last window
-        DEBUG_TRACE("C'est la?");
         while (win->next != NULL) {
             win = win->next;
         }
-        DEBUG_TRACE("C'est la le souci ?");
         win->next = (winman_window*) malloc(sizeof(winman_window));
         win = win->next;
         win->next = NULL;

@@ -1,11 +1,11 @@
 // TEST.C for testing winman
-
 #include "winman.h"
 #include "widgets.h"
 #include "winman_types.h"
 #include "tasks_mgmt.h"
 #include "screen.h"
 #include "termlib.h"
+#include "resman.h"
 #include "log_system.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -117,10 +117,12 @@ void* event_loop(winman_context* ctx) {
 // DO NOT TOUCH MAIN
 int main(int argc, char *argv[])
 {
+    resman_init();
     log_init();
     DEBUG_TRACE("2");
     winman_context* ctx = winman_init((void*)init);
     DEBUG_TRACE("3");
     winman_event_loop(ctx, (void*)event_loop);
+    resman_end();
     return 0;
 }

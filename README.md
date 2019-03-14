@@ -1,4 +1,7 @@
 # winman
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/da1bc30a488b4f32a4986dc9f5dbbf39)](https://app.codacy.com/app/lethenju/winman?utm_source=github.com&utm_medium=referral&utm_content=lethenju/winman&utm_campaign=Badge_Grade_Dashboard)
+
 TUI "window" manager built on top of termlib
 
 ## What is it ?

@@ -66,9 +66,16 @@ void display_windows(winman_context* ctx)
 {
     INFO_TRACE("display windows");
     winman_window* win = ctx->window_list;
+
     //getting to last window
     while (win != NULL)
     {
+        rectangle_filter(ctx->termlib_ctx->screen, 0, 0, ctx->termlib_ctx->screen->width, 
+                                                     ctx->termlib_ctx->screen->height, 0);
+        rectangle_filter(ctx->termlib_ctx->screen, win->posX, win->posY, 
+                                                   win->width+1, 
+                                                   win->height+1, 1);
+
         fill_rectangle(ctx->termlib_ctx->screen, win->posX, win->posY, win->width, win->height, ' ', FG_DEFAULT, BG_DARK_GRAY);
         if (win->next != NULL)
             draw_rectangle(ctx->termlib_ctx->screen, win->posX, win->posY, win->width, win->height, '*', FG_DEFAULT, BG_DARK_GRAY);
@@ -119,10 +126,10 @@ void display_windows(winman_context* ctx)
                     if (circ->filled) 
                     {
                         fill_circle(ctx->termlib_ctx->screen, win->posX + circ->center->posX, win->posY + circ->center->posY,
-                                                             circ->radius, rect->rep, FG_DEFAULT, BG_DEFAULT);
+                                                             circ->radius, circ->rep, FG_DEFAULT, BG_DEFAULT);
                     } else {
                         draw_circle(ctx->termlib_ctx->screen, win->posX + circ->center->posX, win->posY + circ->center->posY,
-                                                             circ->radius, rect->rep, FG_DEFAULT, BG_DEFAULT);
+                                                             circ->radius, circ->rep, FG_DEFAULT, BG_DEFAULT);
                     }
                     break;
             }

@@ -41,6 +41,7 @@ void* init(winman_context* ctx){
     add_widget_to_win(fenetre1_name, ctx->window_list);
     add_widget_to_win(create_widget(TEXT, (void*) create_widget_text(2,2,"FENETRE 2")), ctx->window_list->next);
     add_widget_to_win(create_widget(TEXT, (void*) create_widget_text(2,2,"FENETRE 3")), ctx->window_list->next->next);
+    add_widget_to_win(create_widget(CIRCLE, (void*) create_widget_circle (5, 5, 10, '.')), ctx->window_list);
     DEBUG_TRACE("Adding input tasks");
 
     add_input_task(ctx->window_list,(void*) task_of_changing_window_name);

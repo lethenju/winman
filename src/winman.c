@@ -37,7 +37,7 @@ void winman_event_loop(winman_context *ctx, void(*event_loop)(winman_context*))
 
 }
 
-void add_window(winman_context* ctx, int posX, int posY, int width, int height) 
+winman_window* add_window(winman_context* ctx, int posX, int posY, int width, int height) 
 {
     INFO_TRACE("adding windows");
     winman_window* win;
@@ -63,7 +63,7 @@ void add_window(winman_context* ctx, int posX, int posY, int width, int height)
     win->width = width;
     win->height = height;
     INFO_TRACE("window added");
-
+    return win;
 }
 void del_last_window(winman_context* ctx)
 {

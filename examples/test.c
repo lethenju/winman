@@ -10,8 +10,22 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#define MAX_STRING_LENGTH 1024
+
 
 static int MODE_INTRA_WINDOW = 0;
+
+
+// prevents CWE-126, to protect not \0-terminated strings 
+size_t safe_strlen(const char *str, size_t max_len)
+{
+    const char * end = (const char *)memchr(str, '\0', max_len);
+    if (end == NULL)
+        return max_len;
+    else
+        return end - str;
+}
+
 
 void task_of_changing_window_name(winman_window *win, char c)
 {
@@ -19,14 +33,14 @@ void task_of_changing_window_name(winman_window *win, char c)
     widget_text *wid = win->widget_list->widget_data;
     if (c==127) // backspace
     {
-        if (strlen(wid->text)>0)
-            wid->text[strlen(wid->text) -1] = '\0';
+        if (safe_strlen(wid->text)>0)
+            wid->text[safe_strlen(wid->text, MAX_STRING_LENGTH) -1] = '\0';
     }
     else
     {
         char* new_text = malloc(sizeof(wid->text)+1);  
         strcpy(new_text, wid->text);
-        new_text[strlen(wid->text)] = c;
+        new_text[safe_strlen(wid->text, MAX_STRING_LENGTH)] = c;
         wid->text = new_text;
     }
 }
@@ -112,17 +126,11 @@ void* event_loop(winman_context* ctx) {
     }
 }
 
-
-
-
-// DO NOT TOUCH MAIN
 int main(int argc, char *argv[])
 {
     resman_init();
     log_init();
-    DEBUG_TRACE("2");
     winman_context* ctx = winman_init((void*)init);
-    DEBUG_TRACE("3");
     winman_event_loop(ctx, (void*)event_loop);
     resman_end();
     return 0;

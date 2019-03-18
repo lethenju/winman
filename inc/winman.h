@@ -27,8 +27,9 @@ void winman_event_loop(winman_context *ctx, void(*event_loop)(winman_context*));
  *  @param posY  : the Y coordinate of the top left position of the new window
  *  @param width : the width of the new window
  *  @param height: the height of the new window
+ *  @return winman_window* : a pointer to the newly created window
  */
-void add_window(winman_context* ctx, int posX, int posY, int width, int height);
+winman_window* add_window(winman_context* ctx, int posX, int posY, int width, int height);
 
 /** Deletes a window
  *  @param ctx   : the winman context
@@ -75,4 +76,9 @@ void del_last_window(winman_context* ctx);
  * @param ctx : the context
  */
 void shift_window_layer(winman_context* ctx);
+
+
+size_t safe_strlen(const char *str, size_t max_len);
+
+
 #endif

@@ -2,14 +2,13 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/da1bc30a488b4f32a4986dc9f5dbbf39)](https://app.codacy.com/app/lethenju/winman?utm_source=github.com&utm_medium=referral&utm_content=lethenju/winman&utm_campaign=Badge_Grade_Dashboard)
 
-
 When it comes to user interfaces, you rarely have the choice but to opt for a desktop environment to beneficiate complex features as multi-window systems. Those solutions are nice but goes heavy on ressources, if you are very limited with a low powered target, connected via SSH.
 
 CLI applications, on the other hand, are often not user friendly for non-developers, and people seems to avoid them. 
 
 `winman` tries to tackle theses issues, via a complex window system, while maintaining a very easy to use API.
 
-Some nice TUI applications exists, like tui-rs (https://github.com/fdehau/tui-rs) for rust, but not many uses a true window system.
+Some nice TUI applications exists, like [tui-rs](https://github.com/fdehau/tui-rs) for rust, but not many uses a true window system.
 
 ## Description
 

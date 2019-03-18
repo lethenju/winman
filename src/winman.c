@@ -4,6 +4,18 @@
 #include "log_system.h"
 #include "resman.h"
 #include <stdlib.h>
+#define MAX_STRING_LENGTH 1024
+
+// prevents CWE-126, to protect not \0-terminated strings 
+size_t safe_strlen(const char *str, size_t max_len)
+{
+    const char * end = (const char *)memchr(str, '\0', max_len);
+    if (end == NULL)
+        return max_len;
+    else
+        return end - str;
+}
+
 winman_window* get_last_window(winman_context* ctx) ;
 winman_context* winman_init(void (*init_func)(winman_context*))
 {
@@ -57,6 +69,7 @@ void del_last_window(winman_context* ctx)
 {
     winman_window *win = ctx->window_list;
     winman_window *last = get_last_window(ctx);
+    if (last == NULL) return; // no windows
     while (win->next != last)
         win = win->next;
     win->next = NULL;
@@ -97,7 +110,7 @@ void display_windows(winman_context* ctx)
                     break;
                 case TEXT:;
                     widget_text* text = (widget_text*) wid->widget_data;
-                    if (win->width < text->position->posX + strlen(text->text)) // TODO general managing of window edges
+                    if (win->width < text->position->posX + safe_strlen(text->text, MAX_STRING_LENGTH)) // TODO general managing of window edges
                     {
                         WARNING_TRACE("Text box too large");
                         int available_size =  win->width - text->position->posX;

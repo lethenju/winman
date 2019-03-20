@@ -1,4 +1,7 @@
-// TEST.C for testing winman
+/**
+ * winman version 0.1 (c) Julien LE THENO
+ * (c) MIT LICENSE
+ */
 #include "winman.h"
 #include "widgets.h"
 #include "winman_types.h"

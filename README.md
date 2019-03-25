@@ -28,4 +28,3 @@ You can type to modify the windows name, press '0' to change in interwindow mode
 
 Don't hesitate to tweak the example file to better understand what is going on.
 
-I am currently shooting for a early release in March 2019.

@@ -2,6 +2,8 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/da1bc30a488b4f32a4986dc9f5dbbf39)](https://app.codacy.com/app/lethenju/winman?utm_source=github.com&utm_medium=referral&utm_content=lethenju/winman&utm_campaign=Badge_Grade_Dashboard)
 
+![](https://i.ibb.co/C524Qvg/Screenshot-09052019-03-22-06-PM.png?raw=true)
+
 When it comes to user interfaces, you rarely have the choice but to opt for a desktop environment to beneficiate complex features as multi-window systems. Those solutions are nice but goes heavy on ressources, if you are very limited with a low powered target, connected via SSH.
 
 CLI applications, on the other hand, are often not user friendly for non-developers, and people seems to avoid them. 
@@ -27,4 +29,8 @@ type `make build_and_launch` to build the whole system, the log system server an
 You can type to modify the windows name, press '0' to change in interwindow mode and move the windows themselves using ZQSD.
 
 Don't hesitate to tweak the example file to better understand what is going on.
+
+## Example
+
+Go read the `examples/test.c` file to read the code for the screenshot up there.
 

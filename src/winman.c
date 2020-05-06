@@ -1,6 +1,5 @@
 #include "winman_types.h"
 #include "termlib.h"
-#include "screen.h"
 #include "log_system.h"
 #include "resman.h"
 #include <stdlib.h>

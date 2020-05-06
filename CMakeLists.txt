@@ -30,10 +30,13 @@ set (ALL_LIBS
      resman
 	 log_system
 	 termlib
+	 pthread
+	 m
 )
 
 target_link_libraries(winman
 	${ALL_LIBS}
+	
 )	
 
 set_target_properties(winman PROPERTIES VERSION ${PROJECT_VERSION})

@@ -61,14 +61,14 @@ install(TARGETS winman
 	#[[ Compiling Main ]]
 
 
-add_executable(test_exe
+add_executable(winman_test_exe
 	examples/test.c
 	${INCLUDE_FILES}
 )
 
-target_include_directories(test_exe PRIVATE inc)
+target_include_directories(winman_test_exe PRIVATE inc)
 
-target_link_libraries(test_exe
+target_link_libraries(winman_test_exe
 	winman
 	m
 	pthread

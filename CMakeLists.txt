@@ -7,6 +7,11 @@ include(GNUInstallDirs)
 
 set(CMAKE_BUILD_TYPE Debug)
 
+add_subdirectory(
+	termlib/
+)
+
+
 set(INCLUDE_FILES
 	inc/tasks_mgmt.h
 	inc/widgets.h
@@ -19,7 +24,6 @@ set(LIBRARY_SOURCE_FILES
 	src/widgets.c
 	src/winman.c
 )
-
 
 add_library(winman STATIC
 	${INCLUDE_FILES}

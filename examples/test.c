@@ -3,13 +3,9 @@
  * (c) MIT LICENSE
  */
 #include "winman.h"
-#include "widgets.h"
-#include "winman_types.h"
-#include "tasks_mgmt.h"
-#include "screen.h"
-#include "termlib.h"
-#include "resman.h"
-#include "log_system.h"
+#include <termlib.h>
+#include <resman.h>
+#include <log_system.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>

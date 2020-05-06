@@ -10,6 +10,8 @@
 /** In order to understand the internals, begin with winman_types
  */
 #include "winman_types.h"
+#include "tasks_mgmt.h"
+#include "widgets.h"
 
 /** Initializes the winman module. 
  *  @returns a ptr to the new winman_context 

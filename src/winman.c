@@ -2,6 +2,7 @@
 #include "termlib.h"
 #include "log_system.h"
 #include "resman.h"
+#include <string.h>
 #include <stdlib.h>
 #define MAX_STRING_LENGTH 1024
 

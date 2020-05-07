@@ -21,12 +21,5 @@ mkdir build
 cd build
 cmake ..
 make
-cd termlib/resman
-sudo make install
-cd ../log_system
-sudo make install
-cd ../
-sudo make install
-cd ../
 sudo make install
 

@@ -7,6 +7,10 @@ include(GNUInstallDirs)
 
 set(CMAKE_BUILD_TYPE Debug)
 
+
+
+set(CMAKE_SKIP_INSTALL_ALL_DEPENDENCY true)
+
 add_subdirectory(
 	termlib/
 )
